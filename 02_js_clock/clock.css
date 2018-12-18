@@ -1,0 +1,146 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: 'Montserrat', sans-serif;
+  box-sizing: border-box;
+}
+
+body {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #fac751;
+}
+
+.clock {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background-color: #fff;
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.clock-face {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.clock-face:before {
+  z-index: 2;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: block;
+  width: 12px;
+  height: 12px;
+  content: '';
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #27afca;
+}
+
+.hand {
+  z-index: 1;
+  position: absolute;
+  width: 50px;
+  height: 6px;
+  top: 50%;
+  transform: rotate(90deg);
+  transform-origin: 100%;
+  border-radius: 30px;
+  background-color: #36bfdb;
+  box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s cubic-bezier(.4, 2.08, .55, .44);
+}
+
+.hand.shadow-reverse {
+  box-shadow: 0px -3px 3px rgba(0, 0, 0, 0.08);
+}
+
+.hour-hand {
+  width: 60px;
+  margin-top: -3px;
+  margin-left: 40px;
+}
+
+.min-hand {
+  width: 80px;
+  margin-top: -3px;
+  margin-left: 20px;
+}
+
+.second-hand {
+  width: 80px;
+  height: 2px;
+  margin-top: -1px;
+  margin-left: 20px;
+  background-color: #aaa;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.08);
+}
+
+.second-hand.shadow-reverse {
+  box-shadow: 0px -2px 2px rgba(0, 0, 0, 0.08);
+}
+
+.clock-time {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.clock-time [class^=time-]:before,
+.clock-time [class^=time-]:after {
+  position: absolute;
+  display: block;
+  font-size: 18px;
+  color: #666;
+  font-weight: bolder;
+}
+
+.clock-time .time-tb:before {
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  content: '12';
+}
+
+.clock-time .time-tb:after {
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  content: '6';
+}
+
+.clock-time .time-rl:before {
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  content: '9';
+}
+
+.clock-time .time-rl:after {
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  content: '3';
+}
+
+.time-text {
+  font-size: 22px;
+  margin-top: 24px;
+}
+
+a {
+  margin-top: 20px;
+  color: #666;
+  font-size: 12px;
+}
