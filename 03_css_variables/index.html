@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Update CSS Variables With JS</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="wrap">
+        <h1>Update CSS Variables With <em>JS</em></h1>
+        <div class="option">
+            <strong>Option</strong>
+            <div class="block">
+                <label for="textSize" class="opt-title">Font size</label>
+                <input type="range" name="textSize" min="11" max="18" value="14" data-sizing="px" />
+            </div>
+            <div class="block">
+                <label for="mainColor" class="opt-title">Main Color</label>
+                <input type="color" name="mainColor" value="#ffc600">
+            </div>
+            <div class="block">
+                <label for="blur" class="opt-title">Background Blur</label>
+                <input type="range" name="blur" min="0" max="10" value="0" data-sizing="px" />
+            </div>
+        </div>
+        
+        <div class="content">
+            <article class="article-1">
+                <img src="http://unsplash.it/960?image=183" alt="image" class="img">
+                <div class="txt">
+                    <p><em>Lorem ipsum </em>dolor sit amet, consectetur adipiscing elit. Ut auctor porttitor ipsum. Proin euismod elit risus, vel semper ligula convallis eget. Nullam efficitur condimentum nisi, vel mollis nibh mattis vitae. Nullam porta, mi in sollicitudin imperdiet, magna mi accumsan tortor, quis convallis tortor lorem ac metus. Fusce tincidunt, massa vel porta pellentesque, nibh ex ornare arcu, ac accumsan ipsum ligula in turpis. Proin vel neque in lacus volutpat tempor sit amet pretium massa. Donec tempor <em>mauris ut eros dictum</em>, id cursus nunc venenatis. Aliquam vulputate, orci in laoreet mollis, est orci blandit urna, eu dictum lacus diam ac turpis.</p>
+                    <p>Vestibulum lacinia vel ante vel vehicula. Praesent dignissim tristique luctus. Vivamus odio tellus, aliquam vitae interdum vitae, congue vitae elit. Phasellus ornare feugiat turpis non elementum. In hac habitasse platea dictumst. Phasellus sollicitudin dui ut feugiat convallis. Etiam aliquet gravida metus vel congue.</p>
+                    <p>Quisque non purus at justo interdum finibus. Donec libero nisi, ultrices non blandit eu, convallis et magna. Suspendisse potenti. Quisque vestibulum, diam non facilisis iaculis, dui odio lacinia ligula, sed porttitor felis ex sed nisl. <em>Curabitur tempor vel tellus ac rhoncus</em>. Sed dictum erat pharetra lorem mattis, non euismod risus venenatis. Maecenas vel ligula quis eros laoreet elementum a eget magna.</p>
+                </div>
+            </article>
+            <article class="article-2">
+                <img src="http://unsplash.it/960?image=179" alt="image" class="img">
+                <div class="txt">
+                    <p><em>Integer ac euismod mi, ut commodo risus. Suspendisse metus ante, iaculis ac convallis non, lobortis non nulla. Cras venenatis feugiat dolor, eu aliquet massa venenatis nec.</em> Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nunc viverra dictum sapien, quis dictum nibh. Mauris suscipit, diam congue luctus condimentum, risus massa convallis orci, id ultricies augue risus non ligula. Phasellus viverra risus vel rhoncus aliquam. Aliquam vel vestibulum justo. Ut ornare vel nibh vitae cursus. Mauris vitae mauris at nulla hendrerit dictum ac vel ante. Sed nec dui molestie, pulvinar est nec, molestie mauris. Praesent dignissim velit nec eros tempor, imperdiet maximus magna convallis. Etiam laoreet dolor at elit dapibus, quis molestie enim volutpat. <em>Donec ultricies, eros at aliquam dapibus</em>, mauris turpis vulputate orci, sed vehicula nisi felis eget lorem. Mauris id sollicitudin sem. Proin a pulvinar ipsum, et fringilla nunc. Phasellus rutrum vel sem scelerisque gravida. Nunc maximus enim elit, ut elementum urna vehicula aliquam. Nunc id sapien quis justo mattis volutpat et non quam. Integer hendrerit et elit ut tincidunt. Fusce convallis lectus quis enim semper, vel pretium turpis scelerisque. Maecenas dui elit, semper eu finibus nec, euismod a mauris. Nulla efficitur lorem vitae rutrum tincidunt. Sed in neque maximus, rhoncus libero id, auctor felis. Fusce efficitur ultricies purus. Etiam in augue quis massa facilisis accumsan a id leo. Nunc luctus tellus non odio imperdiet, nec mollis metus euismod. Mauris ut fringilla tortor. Praesent ac dictum leo.</p>
+                </div>
+            </article>
+            <article class="article-3">
+                <img src="http://unsplash.it/960?image=228" alt="image" class="img">
+                <div class="txt">
+                    <p>Vivamus vehicula lacus at fermentum facilisis. Etiam tempus pellentesque tristique. Nullam vitae malesuada eros. Cras facilisis scelerisque felis, in luctus ante dictum ac.</p>
+                    <p>Ut dolor orci, sodales in lectus vel, egestas blandit dui. Nam feugiat, lacus id laoreet dignissim, ligula dolor congue ex, pretium convallis ex elit eget erat. Mauris malesuada faucibus fermentum. Vivamus luctus dapibus metus sed egestas.<em> Cras tempus sodales tincidunt</em>. Mauris sit amet sagittis nisi. Nam nec lectus leo. Praesent ac dolor sit amet quam congue eleifend. Donec interdum a libero at ornare. Pellentesque quis lacinia nisl. Nunc sit amet massa ante. Phasellus in felis est. Vivamus facilisis metus ut mi molestie dictum. <br/>Duis tristique, velit vitae bibendum placerat, elit nisl fermentum nunc, id commodo mi nisi vel risus. In eleifend lorem vitae accumsan pharetra. Nunc ultrices rhoncus pellentesque. Proin tincidunt, nunc eget dapibus pharetra, velit lacus vehicula magna, non auctor libero purus eu lacus. Curabitur nec aliquam leo. Sed blandit vulputate justo in egestas. Donec in viverra eros. Quisque volutpat neque eu mauris euismod convallis nec non metus. Maecenas nibh lorem, lacinia a velit aliquam, <em>ullamcorper condimentum felis</em>. Aenean diam urna, imperdiet id porta quis, cursus in sem. Etiam tempor bibendum maximus. Nulla ut dictum diam. Mauris consequat dolor nec libero pharetra pretium. Phasellus pharetra ultrices efficitur.</p>
+                    <p class="accent"><em>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</em></p>
+                </div>
+            </article>
+        </div>
+        
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
