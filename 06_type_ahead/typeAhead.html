@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Javascript30 - Day6 - Ajax Type Ahead</title>
+  <style>
+    @import url("https://fonts.googleapis.com/css?family=Quicksand:400,700");
+* {
+  font-family: 'Quicksand', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  height: 100vh;
+  min-height: 600px;
+  background: #dc9031;
+  background: linear-gradient(to bottom, #dc9031 1%, #b51847 100%);
+}
+
+.wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.contents {
+  z-index: 1;
+  padding: 50px 60px;
+  min-width: 500px;
+  max-width: 1200px;
+  min-height: 600px;
+  position: relative;
+  background: #f9a63e;
+  background: linear-gradient(to bottom, #f9a63e 1%, #dd2058 100%);
+  width: 80%;
+  height: 80vh;
+  margin: 0 auto;
+  box-shadow: 0px 30px 50px -4px rgba(0, 0, 0, 0.25);
+}
+
+h1 {
+  position: relative;
+  padding-left: 24px;
+  color: #fafafa;
+  font-size: 18px;
+}
+h1:before {
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 14px;
+  height: 4px;
+  margin-right: 8px;
+  background-color: #fafafa;
+  content: '';
+}
+
+.search {
+  display: block;
+  width: 100%;
+  padding: 8px 20px;
+  margin: 30px 0px 20px;
+  border: 0;
+  border-bottom: 1px solid #fff;
+  font-size: 70px;
+  background: none;
+  outline: 0;
+  color: #fff;
+  font-weight: bold;
+}
+.search::-webkit-input-placeholder {
+  color: #fff;
+}
+.search:-ms-input-placeholder {
+  color: #fff;
+}
+.search::-ms-input-placeholder {
+  color: #fff;
+}
+.search::placeholder {
+  color: #fff;
+}
+.search:focus::-webkit-input-placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+.search:focus:-ms-input-placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+.search:focus::-ms-input-placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+.search:focus::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.search-result {
+  background: rgba(255, 255, 255, 0.14);
+  max-height: calc(100% - 220px);
+  overflow: auto;
+  list-style: none;
+  box-shadow: 0px 20px 30px -10px rgba(20, 20, 20, 0.07);
+}
+.search-result li {
+  display: flex;
+  justify-content: space-between;
+  height: 48px;
+  padding: 0 30px;
+  color: #fff;
+  line-height: 43px;
+  cursor: pointer;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+.search-result li:last-child {
+  border-bottom: 0;
+}
+.search-result li:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+.search-result li .name {
+  display: block;
+  max-width: 70%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.search-result li .population {
+  font-size: 80%;
+}
+.search-result li .accent {
+  font-style: normal;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.address {
+  opacity: 0.8;
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  font-family: monospace;
+  color: #ececec;
+  letter-spacing: 1px;
+  font-size: 11px;
+  text-decoration: none;
+  border-bottom: 1px solid #ececec;
+  padding-bottom: 2px;
+}
+.address:hover {
+  opacity: 1;
+}
+</style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="contents">
+      <h1>Where you want to be?</h1>
+      <input type="text" class="search" placeholder="Search..." />
+      <ul class="search-result">
+      </ul>
+      <div><a class="address" href="https://nykim.net" target="_blank">nykim.net</a></div>
+    </div>
+  </div>
+
+  <script>
+    const endpoint =
+      "https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json";
+
+    const cities = [];
+
+    // 1. fetch로 파일내용 가져오기 
+    fetch(endpoint)
+      .then(blob => blob.json())
+      .then(data => cities.push(...data));
+
+    // 2. 단어가 일치하는 데이터만 새 배열로 만들기
+    function findMatches(word, arr) {
+      return arr.filter(place => {
+        const regex = new RegExp(word, "gi");
+        return place.city.match(regex) || place.state.match(regex);
+      })
+    }
+
+    // 3. 숫자에 천 단위 콤마 표시
+    function numberWithCommas(x) {
+      return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+
+    // 4. 일치하는 단어 보여주기
+    function displayMatches() {
+
+      const matchArray = findMatches(this.value, cities);
+      const html = matchArray.map(data => {
+        const regex = new RegExp(this.value, "gi");
+        const cityName = data.city.replace(
+          regex,
+          `<em class="accent">${this.value}</em>`
+        );
+        const stateName = data.state.replace(
+          regex,
+          `<em class="accent">${this.value}</em>`
+        );
+        return `
+        <li>
+          <span class="name">${cityName}, ${stateName}</span>
+          <span class="population">${numberWithCommas(data.population)}</span>
+        </li>`;
+      }).join("");
+      resultArea.innerHTML = html;
+
+
+      if (this.value === "") {
+        resultArea.innerHTML = "";
+      }
+    }
+
+    // 5. 이벤트 리스너 달기
+    const searchInput = document.querySelector(".search");
+    const resultArea = document.querySelector(".search-result");
+    searchInput.addEventListener("change", displayMatches);
+    searchInput.addEventListener("keyup", displayMatches);
+  </script>
+</body>
+
+</html>

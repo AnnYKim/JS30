@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <div class="post-style-01">
+
+
+
+
+    <p>Javascript30 강의 중 Day 07에 해당하는 Array Cardio 2 입니다 :></p>
+
+    <div class="article">
+      <h2>Array.prototype.some()</h2>
+      <p><a href="https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Array/some" target="_blank">MDN</a>에
+        따르면, <code>some()</code> 메서드는 <b>배열 안의 어떤 요소가 주어진 판별 함수를 통과하는지</b> 테스트한다고 합니다. (ES6 이상)<br />더 쉽게 풀어쓰면, some()
+        메서드든 콜백함수를
+        인자로 받아서, 배열 내 각 요소에게 한 번씩 그 콜백함수를 실행합니다. 이때 해당하는 요소를 발견하면 true를 반환하고, 모든 요소에게 함수를 실행했지만 해당하는 요소가 없다면 false를
+        반환합니다.</p>
+      <p>백문이 불여일견, 예제를 살펴보죠! 아래 코드는 배열 내에 10 이상인 숫자가 있는지 판단합니다.</p>
+      <pre><code>
+<!--
+function isBiggerThan10(elem){
+  return elem > 10;
+}
+
+[1,5,8].some(isBiggerThan10); //false
+[2,6,10].some(isBiggerThan10); //true
+-->
+    </code></pre>
+      <p>화살표 함수를 쓴다면 아래처럼 축약도 가능합니다.</p>
+      <pre><code>
+<!--
+[1,5,8].some(elem => elem > 10); //false
+[2,6,10].some(elem => elem > 10); //true
+-->
+    </code></pre>
+      <p>그럼 좀 더 복잡한 배열을 가지고 some() 메서드를 써봅니다. 아래와 같이 변수가 있고, 이 가운데 20세가 넘는 사람이 있는지 파악하려고 합니다.</p>
+      <pre><code>
+<!--
+const people = [
+  { name: 'Lorem', year: 2015 },
+  { name: 'Ipsum', year: 2002 },
+  { name: 'Vid', year: 1997 },
+  { name: 'Anne', year: 1993 }
+];
+-->
+    </code></pre>
+      <p>그럼 some() 메서드에 20세가 넘는지 판단하는 함수를 콜백함수로 주면 되는데요, 이렇게 작성할 수 있겠습니다.</p>
+      <pre><code>
+<!--
+function isAdult(person){
+  const currentYear = (new Date()).getFullYear();
+  if (currentYear - person.year >= 20){
+    return true;
+  }
+}
+
+people.some(isAdult); //true
+-->
+    </code></pre>
+      <div class="img">{이미지}</div>
+      <p>그밖에 다른 예제도 살펴보죠! 화살표 함수를 사용하여 값이 존재하는지 확인하는 코드입니다.</p>
+      <pre><code>
+<!--
+const names = ['anne', 'nykim', 'annykim'];
+function isThere(arr, keyword){
+  return arr.some(elem => elem === keyword);
+}
+isThere(names, 'anne');
+-->
+    </code></pre>
+      <p>화살표 함수를 쓰니 내용이 말끔하네요. 저기 콜백함수 내 elem이 무엇이냐하면은, some() 메서드 내 콜백함수는 <b>요소의 값, 해당 요소의 인덱스 및 순회하고 있는 배열 세 가지 인수</b>와
+        함께 호출됩니다.</p>
+      <pre><code>
+<!--
+const fruits = ['apple', 'banana', 'mango', 'guava'];
+fruits.some( (elem, index, array) => {
+  console.log(elem, index, array);
+  return index === 10;
+});
+-->
+    </code></pre>
+      <div class="img">{이미지}</div>
+
+      </article>
+
+      <hr />
+
+      <div class="article">
+        <h2>Array.prototype.every()</h2>
+        <p><code>every()</code> 메서드는 some() 메서드와 거의 유사하며, 차이점은 every()는 <b>배열의 모든 값이 조건을 만족해야 true를 반환</b>한다는 것입니다.</p>
+        <pre><code>
+  <!--
+const num = [2,4,6,9];
+num.some( elem => elem%2 === 0 ); //true
+num.every( elem => elem%2 === 0 ); //false
+  -->
+      </code></pre>
+        <p>음... 설명은 여기까지 하고 다음 메서드를 살펴보죠 (코쓱)</p>
+      </div>
+
+      <hr />
+
+      <div class="article">
+        <h2>Array.prototype.find()</h2>
+        <p>이번에는 <code>find()</code> 메서드입니다. 주어진 판별 함수를 만족하는 <b>첫 번째 요소의 값을 반환</b>하며, 그런 요소가 없다면 undefined를 퉷 뱉어줍니다.
+          반환되는
+          값이 첫 번째 요소의 값이란 데 주의합시다.</p>
+        <pre><code>
+  <!--
+const num = [1,3,5,7,9,55,130];
+num.find( elem => elem%2 === 0 ); //130
+  -->
+      </code></pre>
+        <p>만약 값이 아니라 인덱스를 반환했으면 좋겠다면 <code>findIndex()</code>를 사용하면 됩니다.</p>
+      </div>
+
+      <hr />
+
+      <div class="article">
+        <h2>Array.prototype.findIndex()</h2>
+        <p>이번에는 <code>find()</code> 메서드입니다. 이름에서 볼 수 있듯이 find()가 값 대신 인덱스를 반환해준다고 보면 됩니다. 얘도 마찬가지로 반환되는 인덱스는 첫 번째 요소의
+          것입니다.</p>
+        <pre><code>
+  <!--
+const num = [1,3,5,7,9,55,130];
+num.findIndex( elem => elem%2 === 0 ); //6
+  -->
+      </code></pre>
+      </div>
+
+      <hr />
+
+      <div class="article">
+        <h2>Array.prototype.splice()</h2>
+        <p>이때 문득 드는 생각, 배열의 요소를 삭제하거나 교체하려면 어떻게 하나요? 그럴 땐 아묻따 <code>splice()</code>를 써보면 어떨까요(?!) <br /> 상세한 내용은 언제나
+          그렇듯
+          <a href="https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Array/splice" target="_blank">MDN</a>을
+          참고합시다.</p>
+        <p>우선, 배열 내 요소를 삭★제해보겠습니다.</p>
+        <pre><code>
+  <!--
+const arr = ['가', '나', '다', '라'];
+arr.splice(0, 2);
+console.log(arr); //['다', '라'];
+  -->
+      </code></pre>
+        <p>splice()는 3개의 매개변수가 들어갈 수 있는데, 첫 번째는 <b>배열을 시작할 인덱스</b>입니다. 이 값은 필수이며, 음수의 경우 끝에서부터 요소를 세어나갑니다. 두 번째는 <b>배열에서
+            제거할 요소의 수</b>이고, 세 번째는 <b>배열에 추가할 요소</b>입니다. 만약 세 번째 인자가 없다면 오로지 삭제만 하겠죠. <br />즉, 위의 코드는 '첫번째 인덱스부터 두 개의
+          요소를
+          지우는' 코드가 되겠습니다.</p>
+        <p>이번에는 배열 내 요소를 교체해보겠습니다. 세 번째 인자를 넣어주면 될 거 같습니다.</p>
+        <pre><code>
+  <!--
+const arr = [1,2,3,4];
+arr.splice(2, 1, 'NEW!!');
+console.log(arr); //[1,'NEW!!',3,4];
+  -->
+      </code></pre>
+        <p>JS30 강의에서는 이걸 이렇게 사용하고 있습니다.</p>
+        <pre><code>
+  <!--
+const comments = [
+  { text: 'Solum omnium lumen', id: 12341234 },
+  { text: 'Dum vita est, spes est', id: 56785678 },
+  { text: 'Omnia vincit Amor', id: 99990000 },
+  { text: 'Ego sum lux mundi', id: 00001111 },
+  { text: 'Carpe diem', id: 12300321 }
+];
+
+const index = comments.findIndex( comment => comment.id === 12341234);
+comments.splice(index, 1);
+  -->
+      </code></pre>
+        <p>여기서 <code>console.log(comments)</code>를 쳐보면 첫 번째 배열 요소가 사라지고 length 4의 배열만이 남은 걸 볼 수 있습니다.</p>
+        <!--
+console.log(comments);
+/*
+(4) [{…}, {…}, {…}, {…}]
+    0: {text: "Dum vita est, spes est", id: 56785678}
+    1: {text: "Omnia vincit Amor", id: 99990000}
+    2: {text: "Ego sum lux mundi", id: 585}
+    3: {text: "Carpe diem", id: 12300321}
+    length: 4
+    __proto__: Array(0)
+*/
+      -->
+        </code>
+        </pre>
+      </div>
+
+      <hr />
+
+      <div class="article">
+        <h2>Array.prototype.slice()</h2>
+        <p>위의 예제에서는 splice()를 써서 length 4의 배열을 만들었는데, 다른 메서드로도 위의 결과를 만들 수 있습니다. 바로 <code>slice()</code>메서드입니다.<br />slice()는
+          어떤 배열의 <b>begin부터 end 직전까지 복사해서 새로운 배열 객체로 반환</b>합니다. 이때, 원본 배열은 수정되지 않습니다. <a href="https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Array/slice"
+            target="_blank">(*MDN)</a></p>
+        <pre><code class="JavaScript">
+  <!--
+const arr = ['안', '녕', '하', '세', '요'];
+arr.slice(2); //['하','세','요'];
+arr.slice(0, 2); //['안', '녕'];
+  -->
+      </code></pre>
+        <p>인자는 <code>begin</code>과 <code>end</code> 두 개이며, 둘 다 optional입니다. <br /> 먼저 begin은 슬라이스를 시작할 인덱스를 정하는데, 이 값이
+          없다면 자동으로 0이 됩니다. 음수를 넣는다면 배열 끝에서부터 계산하고요. <br /> end는 슬라이스를 끝낼 인덱스인데, 주의할 점은 <b>end 인덱스는 제외</b>하고 슬라이스된다는
+          것입니다.
+          따라서 <code>slice(1,5)</code>는 두 번째 ~ 다섯 번째 요소만 자르겠죠. 값이 비어있다면 자동으로 arr.length가 되고, 음수라면 배열 끝에서부터 계산합니다.</p>
+        <p>그럼 아래와 같이 작성해봅니다.</p>
+        <pre><code>
+  <!--
+const comments = [
+  { text: 'Solum omnium lumen', id: 12341234 },
+  { text: 'Dum vita est, spes est', id: 56785678 },
+  { text: 'Omnia vincit Amor', id: 99990000 },
+  { text: 'Ego sum lux mundi', id: 00001111 },
+  { text: 'Carpe diem', id: 12300321 }
+];
+
+const index = comments.findIndex( comment => comment.id === 12341234);
+const newComments = [
+  ...comments.slice(0, index),
+  ...comments.slice(index+1)
+];
+console.log(newComments);
+/*
+(4) [{…}, {…}, {…}, {…}]
+    0: {text: "Dum vita est, spes est", id: 56785678}
+    1: {text: "Omnia vincit Amor", id: 99990000}
+    2: {text: "Ego sum lux mundi", id: 585}
+    3: {text: "Carpe diem", id: 12300321}
+    length: 4
+    __proto__: Array(0)
+*/
+  -->
+      </code></pre>
+        <p>짠, 위와 똑같은 결과가 나왔습니다. 다른 점은 splice()는 원본배열을 싹둑한 거고, slice()는 새로운 배열을 만들었다는 거네요. 원본 배열을 남겨야하는 경우라면 후자와 같이 작성하면
+          되겠습니다. 이때, <b>전개 연산자(...)</b>를 썼다는 것도 체크!! 저게 없으면 [[배열],[배열]]과 같이 요상한 배열이 되버리니 주의합시다.</p>
+      </div>
+
+
+    </div>
+
+</body>
+
+</html>

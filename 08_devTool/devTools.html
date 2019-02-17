@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <!-- ========================== -->
+  <!-- DOM Breakpoints -->
+
+  <h1>나는 제목이다</h1>
+
+  <script>
+    const headline = document.querySelector("h1");
+
+    function test() {
+      this.style.color = "red";
+      this.style.backgroundColor = "yellow";
+      this.style.setProperty("outline", "3px solid gray");
+    }
+
+    headline.addEventListener("click", test);
+  </script>
+
+
+
+  <!-- ========================== -->
+  <!-- String substitutions -->
+
+  <button>버튼입니다</button>
+  <script>
+    const btn = document.querySelector("button");
+    const buttonText = btn.textContent;
+    let clickedTimes = 0;
+
+    function clickBtn() {
+      if (clickedTimes >= 5) {
+        console.log(`${clickedTimes}번이나 누르다니.. 대단하다.`)
+      }
+      clickedTimes++;
+      console.log("%s 라고 쓰인 버튼을 %d번 눌렀다.", buttonText, clickedTimes)
+
+    }
+    btn.addEventListener("click", clickBtn);
+  </script>
+
+
+  <!-- ========================== -->
+  <!-- Console API -->
+
+  <script>
+    // styled console
+    const me = "Anne";
+    console.log(`Awesome, %c ${me}! `, "background-color:#bada55; color: #333; font-weight:bold; font-size:120%;");
+
+
+    // console.warn(), console.error(), console.info()
+    console.warn("우리들 가운데 스파이가 있는 것 같아...")
+    console.error("에러...라고?!");
+    console.info("저는 Anne입니다.")
+
+
+    // console.assert()
+    function overTen(a, b) {
+      console.assert(a + b > 10, `${a}+${b}를 했지만 10을 넘지 않습니다.`)
+    }
+    overTen(3, 4);
+
+
+    // console.groupCollapsed()
+    console.groupCollapsed('뭔가... 먹고 싶다!');
+    console.groupCollapsed('치킨 먹고 싶다');
+    console.warn("허니버터치킨");
+    console.warn("마늘간장치킨");
+    console.groupEnd();
+    console.groupCollapsed('순대 먹고 싶다');
+    console.warn("백암순대");
+    console.warn("병천순대");
+    console.groupEnd();
+    console.groupEnd();
+
+
+    // console.count()
+    function sayHi(x) {
+      for (var i = 0; i < x; i++) {
+        console.count("Hi");
+      }
+    }
+    sayHi(10);
+
+    // timing
+    console.time("1부터 100까지 콘솔에 찍자")
+    console.groupCollapsed('i는...');
+    for (let i = 0; i < 100; i++) {
+      console.log(i);
+    }
+    console.groupEnd();
+    console.timeEnd("1부터 100까지 콘솔에 찍자");
+
+
+    console.log("----------");
+
+    console.time("API 불러오기");
+    fetch("https://api.github.com/users/annykim")
+      .then(blob => blob.json())
+      .then(data => {
+        console.table(data)
+        console.timeEnd("API 불러오기");
+      });
+  </script>
+
+
+</body>
+
+</html>
